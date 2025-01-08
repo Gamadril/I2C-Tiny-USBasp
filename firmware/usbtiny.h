@@ -10,26 +10,20 @@
 // The D+ and D- USB signals should be connected to two pins of the same
 // I/O port. The following macros define the port letter and the input
 // bit numbers:
-#if! defined (__AVR_ATtiny45__)
-#define	USBTINY_PORT			C
+#define	USBTINY_PORT			B
 #define	USBTINY_DPLUS			1
 #define	USBTINY_DMINUS			0
-#else
-#define	USBTINY_PORT			B
-#define	USBTINY_DPLUS			2
-#define	USBTINY_DMINUS			0
-#endif
 
 // The D+ signal should be connected to an interrupt input to trigger an
 // interrupt at the start of a packet. When you use the same pin for the
 // D+ USB signal and the interrupt input, only two I/O pins are needed
 // for the USB interface. The following macro defines the interrupt
 // number:
-#define	USBTINY_INT			0
+#define	USBTINY_INT			    0
 
 // The power requirement of the USB device in mA, or 0 when the device
 // is not bus powered:
-#define	USBTINY_MAX_POWER		10
+#define	USBTINY_MAX_POWER		100
 
 // The USB vendor and device IDs. These values should be unique for
 // every distinct device. You can get your own vendor ID from the USB
@@ -73,7 +67,7 @@
 // When defined as 1, the function usb_out() is called for OUT packets.
 // You need this option to send data from the host to the device in
 // a control transfer.
-#define	USBTINY_CALLBACK_OUT		1
+#define	USBTINY_CALLBACK_OUT	1
 
 // Set the macro USBTINY_ENDPOINT to 1 to add an additional endpoint,
 // according to the values of the three other macros.
@@ -81,3 +75,14 @@
 #define	USBTINY_ENDPOINT_ADDRESS	0x81	// IN endpoint #1
 #define	USBTINY_ENDPOINT_TYPE		0x00	// control transfer type
 #define	USBTINY_ENDPOINT_INTERVAL	0	// ignored
+
+// Optional definition of the I/O pin to drive the "USB OK" LED, that
+// will turn on when the host has assigned a device address. (+6 bytes)
+#define	USBTINY_USB_OK_LED		(C,0)
+
+// Optional definition of the I/O pin to drive the "USB WRITE" LED.
+#define	USBTINY_USB_TX_LED		(C,1)
+
+// that calculates the CRC about twice as fast as the standard version,
+// but at the expense of 42 bytes of additional flash memory.
+#define	USBTINY_FAST_CRC		1

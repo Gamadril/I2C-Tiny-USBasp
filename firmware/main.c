@@ -44,30 +44,19 @@
 
 #include <util/delay.h>
 
-#ifndef USBTINY
-// use avrusb library
-#include "usbdrv.h"
-#include "oddebug.h"
-#else
 // use usbtiny library 
 #include "usb.h"
 #include "usbtiny.h"
 typedef byte_t uchar;
 
-#if! defined (__AVR_ATtiny45__)
-#define USBDDR DDRC
-#define USB_CFG_IOPORT PORTC
-#else
 #define USBDDR DDRB
 #define USB_CFG_IOPORT PORTB
-#endif
 
 #define USB_CFG_DMINUS_BIT USBTINY_DMINUS
 #define USB_CFG_DPLUS_BIT USBTINY_DPLUS
 
 #define usbInit()  usb_init()
 #define usbPoll()  usb_poll()
-#endif
 
 #define ENABLE_SCL_EXPAND
 
@@ -165,19 +154,11 @@ static unsigned short clock_delay2 = DEFAULT_DELAY/2;
 static unsigned short expected;
 static unsigned char saved_cmd;
 
-#if! defined (__AVR_ATtiny45__)
-#define I2C_PORT   PORTC
-#define I2C_PIN    PINC
-#define I2C_DDR    DDRC
-#define I2C_SDA    _BV(4)
-#define I2C_SCL    _BV(5)
-#else
 #define I2C_PORT   PORTB
 #define I2C_PIN    PINB
 #define I2C_DDR    DDRB
-#define I2C_SDA    _BV(1)
+#define I2C_SDA    _BV(4)
 #define I2C_SCL    _BV(5)
-#endif
 
 static void i2c_io_set_sda(uchar hi) {
   if(hi) {
@@ -367,22 +348,15 @@ static uchar i2c_do(struct i2c_cmd *cmd) {
   }
 
   /* more data to be expected? */
-#ifndef USBTINY
-  return(cmd->len?0xff:0x00);
-#else
   return(((cmd->flags & I2C_M_RD) && cmd->len)?0xff:0x00);
-#endif
 }
 
-#ifndef USBTINY
-uchar	usbFunctionSetup(uchar data[8]) {
-  static uchar replyBuf[4];
-  usbMsgPtr = replyBuf;
-#else
+/*---------------------------------------------------------------------------*/
+/* usb setup                                                                 */
+/*---------------------------------------------------------------------------*/
 extern	byte_t	usb_setup ( byte_t data[8] )
 {
   byte_t *replyBuf = data;
-#endif
 
   DEBUGF("Setup %x %x %x %x\n", data[0], data[1], data[2], data[3]);
 
@@ -438,14 +412,9 @@ extern	byte_t	usb_setup ( byte_t data[8] )
 
 
 /*---------------------------------------------------------------------------*/
-/* usbFunctionRead                                                           */
+/* usb read                                                                  */
 /*---------------------------------------------------------------------------*/
-
-#ifndef USBTINY
-uchar usbFunctionRead( uchar *data, uchar len )
-#else
 extern	byte_t	usb_in ( byte_t* data, byte_t len )
-#endif
 {
   uchar i;
 
@@ -477,14 +446,9 @@ extern	byte_t	usb_in ( byte_t* data, byte_t len )
 }
 
 /*---------------------------------------------------------------------------*/
-/* usbFunctionWrite                                                          */
+/* usb write                                                                 */
 /*---------------------------------------------------------------------------*/
-
-#ifndef USBTINY
-uchar usbFunctionWrite( uchar *data, uchar len )
-#else
 extern	void	usb_out ( byte_t* data, byte_t len )
-#endif
 {
   uchar i, err=0;
 
@@ -517,10 +481,6 @@ extern	void	usb_out ( byte_t* data, byte_t len )
     DEBUGF("not in ack state\n");
     memset(data, 0, len);
   }
-
-#ifndef USBTINY
-  return len;
-#endif
 }
 
 

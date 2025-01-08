@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name i2c-tiny-usb-rescue)(type Legacy)(uri ${KIPRJMOD}/i2c-tiny-usb-rescue.lib)(options "")(descr ""))
-)

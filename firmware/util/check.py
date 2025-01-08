@@ -34,18 +34,18 @@ for line in os.popen('avr-objdump -ht ' + sys.argv[1]).readlines():
 			bss = int(a[2], 16)
 	if len(a) == 5 and a[4] == 'crc4tab':
 		crc4tab = int(a[0], 16)
-print 'text: %d, data: %d, bss: %d' % (text, data, bss)
+print('text: %d, data: %d, bss: %d' % (text, data, bss))
 
 status = 0
 overflow = text + data - flashsize
 if overflow > 0:
-	print 'ERROR: Flash size limit exceeded by %d bytes.' % overflow
+	print('ERROR: Flash size limit exceeded by %d bytes.' % overflow)
 	status = 1
 overflow = bss + data - max_sram
 if overflow > 0:
-	print 'ERROR: SRAM size limit exceeded by %d bytes.' % overflow
+	print('ERROR: SRAM size limit exceeded by %d bytes.' % overflow)
 	status = 1
 if (crc4tab & 0xff) > 0xf0:
-	print 'ERROR: The table crc4tab should not cross a page boundary.'
+	print('ERROR: The table crc4tab should not cross a page boundary.')
 	status = 1
 sys.exit(status)

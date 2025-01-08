@@ -7,13 +7,11 @@
 # Public License as published by the Free Software Foundation.
 # ======================================================================
 USBTINY         = ./usbtiny
-TARGET_ARCH     = -DF_CPU=12000000 -DUSBTINY -mmcu=attiny45
+TARGET_ARCH     = -DF_CPU=12000000 -mmcu=atmega8
 OBJECTS         = main.o
-TTY             = /dev/ttyUSB0
-# TTY             = /dev/ttyS0
-FLASH_CMD       = avrdude -P$(TTY) -c stk500hvsp -p attiny45 -U lfuse:w:0xdf:m -U hfuse:w:0x5f:m -U flash:w:main.hex
+FLASH_CMD       = avrdude -c usbasp -p atmega8 -U lfuse:w:0x9f:m -U hfuse:w:0xc9:m -U flash:w:firmware.hex
 STACK           = 32
-FLASH           = 4096
-SRAM            = 256
+FLASH           = 8192
+SRAM            = 1024
 
 include $(USBTINY)/common.mk
