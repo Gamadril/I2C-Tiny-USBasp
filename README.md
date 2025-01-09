@@ -39,6 +39,10 @@ Easiest way to program the USBasp board with the i2c-tiny-usb firmware is to use
 
 [](images/connection.png)
 
+## Pinout
+
+[](images/isp10.png)
+
 ## Testing (Linux)
 
 - Connect the flashed USBasp device to your linux machine
