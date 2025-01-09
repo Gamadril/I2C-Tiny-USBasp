@@ -37,7 +37,8 @@ Easiest way to program the USBasp board with the i2c-tiny-usb firmware is to use
 - run `make flash` from `firmware` subfolder to flash firmware.hex to the target USBasp
 - remove JP2 `Self program` bridge
 
-[](images/connection.png)
+![](images/connection.png)
+
 
 ## Testing (Linux)
 
@@ -45,4 +46,4 @@ Easiest way to program the USBasp board with the i2c-tiny-usb firmware is to use
 - install `i2c-tools` package (e.g. `sudo apt install i2c-tools`)
 - run `i2cdetect -l`, i2-tiny-usb interface should be listed
 
-[](images/i2cdetect.png)
+![](images/i2cdetect.png)
