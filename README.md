@@ -13,13 +13,14 @@ Modifications done:
 - removed all usb stacks excepting usbtiny
 - updated usbtiny stack (v1.7) with fast CRC enabled
 - two LEDs configured for "USB OK" and "USB TX" notifications
-- updated LED on/off control in tinyusb
+- updated LED on/off control in usbtiny
 - removed attiny45 code
 - updated USB D+ D- pins to fit USBasp hardware (D+ is PB1, D- is PB0)
 - updated I2C pins to fit USBasp hardware (SCL is PB5, SDA is PB4)
 - removed all makefiles excepting one for USBasp with atmega8
 - updated Makefile to use python3 for check.py
-- updated usbtiny makefile to build firmware.hex instead of main.hex, - `make flash` will flash without building
+- updated usbtiny makefile to build firmware.hex instead of main.hex
+- `make flash` will flash without building
 
 ## Compiling the firmware
 
