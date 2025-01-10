@@ -33,8 +33,8 @@ Modifications done:
 Easiest way to program the USBasp board with the i2c-tiny-usb firmware is to use another USBasp board.
 
 - Bridge the JP2 `Self program` pins of the target USBasp device
-- Connect another USBasp device (as programmer) to your PC
-- Connect the both USBasp devices together
+- Connect another USBasp device (as programmer) to the target board
+- Put the pragrammer USBasp into USB port of your PC
 - run `make flash` from `firmware` subfolder to flash firmware.hex to the target USBasp
 - remove JP2 `Self program` bridge
 
